@@ -1,0 +1,17 @@
+{
+  "name": "comext-analysis-deck",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "slidev --port 3030",
+    "build": "slidev build",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@iconify-json/mdi": "^1.2.3",
+    "@slidev/cli": "^52.14.2",
+    "chart.js": "^4.4.1",
+    "slidev-theme-neversink": "^0.4.1",
+    "vue": "^3.4.0"
+  }
+}
