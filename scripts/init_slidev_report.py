@@ -29,9 +29,19 @@ PACKAGE_JSON = {
 
 BAR_RANKING = """<script setup>
 import { onMounted, ref, watch } from 'vue'
-import { Chart, BarController, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from 'chart.js'
+import { Chart, BarController, BarElement, CategoryScale, LinearScale, Tooltip, Legend, Colors } from 'chart.js'
 
-Chart.register(BarController, BarElement, CategoryScale, LinearScale, Tooltip, Legend)
+Chart.register(BarController, BarElement, CategoryScale, LinearScale, Tooltip, Legend, Colors)
+
+const chartJsDefaultColors = [
+  '#36A2EB',
+  '#FF6384',
+  '#FFCE56',
+  '#4BC0C0',
+  '#9966FF',
+  '#FF9F40',
+  '#C9CBCF',
+]
 
 const props = defineProps({
   items: { type: Array, default: () => [] },
@@ -57,6 +67,8 @@ function render() {
   const dataset = {
     label: props.label,
     data,
+    backgroundColor: data.map((_, index) => chartJsDefaultColors[index % chartJsDefaultColors.length]),
+    borderColor: data.map((_, index) => chartJsDefaultColors[index % chartJsDefaultColors.length]),
     borderWidth: 1,
   }
 

@@ -1,0 +1,1 @@
+import{o as t,e as s,g as o,i as r}from"./modules/vue-CD9mGuDB.js";import{u as a}from"./slidev/context-yrNjdjCD.js";const c={class:"h-full flex items-center justify-center"},n={class:"w-full max-w-4xl px-12 mx-auto text-center"},m={__name:"centered-section-divider",setup(l){return a(),(e,i)=>(t(),s("div",c,[o("div",n,[r(e.$slots,"default")])]))}};export{m as _};

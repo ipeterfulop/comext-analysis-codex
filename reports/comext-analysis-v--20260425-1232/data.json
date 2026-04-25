@@ -1,0 +1,1242 @@
+{
+  "meta": {
+    "dataset": "ext_go_detail",
+    "source": "Eurostat COMEXT",
+    "years": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "sitc_categories": {
+      "32": "Coal, coke and briquettes",
+      "33": "Petroleum, petroleum products and related materials",
+      "34": "Gas, natural and manufactured",
+      "35": "Electric current"
+    },
+    "country_names": {
+      "AT": "Austria",
+      "BE": "Belgium",
+      "BG": "Bulgaria",
+      "CY": "Cyprus",
+      "CZ": "Czechia",
+      "DE": "Germany",
+      "DK": "Denmark",
+      "EE": "Estonia",
+      "EL": "Greece",
+      "GR": "Greece",
+      "ES": "Spain",
+      "FI": "Finland",
+      "FR": "France",
+      "HR": "Croatia",
+      "HU": "Hungary",
+      "IE": "Ireland",
+      "IT": "Italy",
+      "LT": "Lithuania",
+      "LU": "Luxembourg",
+      "LV": "Latvia",
+      "MT": "Malta",
+      "NL": "Netherlands",
+      "PL": "Poland",
+      "PT": "Portugal",
+      "RO": "Romania",
+      "SE": "Sweden",
+      "SI": "Slovenia",
+      "SK": "Slovakia"
+    },
+    "analyzed_countries": [
+      "AT",
+      "BE",
+      "BG",
+      "CY",
+      "CZ",
+      "DE",
+      "DK",
+      "EE",
+      "ES",
+      "FI",
+      "FR",
+      "GR",
+      "HR",
+      "HU",
+      "IE",
+      "IT",
+      "LT",
+      "LU",
+      "LV",
+      "MT",
+      "NL",
+      "PL",
+      "PT",
+      "RO",
+      "SE",
+      "SI",
+      "SK"
+    ],
+    "populations": {
+      "AT": 9177982,
+      "BE": 11858610,
+      "BG": 6441421,
+      "CY": 1358282,
+      "CZ": 10905028,
+      "DE": 83516593,
+      "DK": 5976992,
+      "EE": 1372341,
+      "EL": 10405134,
+      "ES": 48848840,
+      "FI": 5619911,
+      "FR": 68551653,
+      "HR": 3866200,
+      "HU": 9562065,
+      "IE": 5395790,
+      "IT": 58952704,
+      "LT": 2888278,
+      "LU": 677012,
+      "LV": 1866124,
+      "MT": 568847,
+      "NL": 17993485,
+      "PL": 36559233,
+      "PT": 10694681,
+      "RO": 19051804,
+      "SE": 10569709,
+      "SI": 2127400,
+      "SK": 5422069
+    },
+    "filtered_detail_rows": 1617089,
+    "data_quality": {
+      "filtered_rows": 1617089,
+      "column_count": 18,
+      "column_names": [
+        "REPORTER",
+        "PARTNER",
+        "TRADE_TYPE",
+        "PRODUCT_NC",
+        "PRODUCT_SITC",
+        "PRODUCT_CPA21",
+        "PRODUCT_CPA22",
+        "PRODUCT_BEC",
+        "PRODUCT_BEC5",
+        "PRODUCT_SECTION",
+        "FLOW",
+        "STAT_PROCEDURE",
+        "SUPPL_UNIT",
+        "PERIOD",
+        "VALUE_EUR",
+        "VALUE_NAC",
+        "QUANTITY_KG",
+        "QUANTITY_SUPPL_UNIT"
+      ],
+      "distinct_reporters": 27,
+      "distinct_products": 44,
+      "missing_value_pct": 0.0,
+      "missing_quantity_pct": 0.0
+    }
+  },
+  "imports": {
+    "32": {
+      "top5": [
+        {
+          "code": "DE",
+          "name": "Germany",
+          "value": 36822338579.0,
+          "per_capita": 440.89847605493196,
+          "category_share_pct": 6.015576566408573
+        },
+        {
+          "code": "NL",
+          "name": "Netherlands",
+          "value": 31155185388.0,
+          "per_capita": 1731.4703287328718,
+          "category_share_pct": 5.405444978765854
+        },
+        {
+          "code": "PL",
+          "name": "Poland",
+          "value": 12858743207.0,
+          "per_capita": 351.723549752808,
+          "category_share_pct": 9.56823651650669
+        },
+        {
+          "code": "FR",
+          "name": "France",
+          "value": 9765978129.0,
+          "per_capita": 142.4615994161366,
+          "category_share_pct": 2.208194124575334
+        },
+        {
+          "code": "IT",
+          "name": "Italy",
+          "value": 9284202838.0,
+          "per_capita": 157.48561487527357,
+          "category_share_pct": 2.176525040812332
+        }
+      ],
+      "per_capita_top5": [
+        {
+          "code": "NL",
+          "name": "Netherlands",
+          "value": 31155185388.0,
+          "per_capita": 1731.4703287328718,
+          "category_share_pct": 5.405444978765854
+        },
+        {
+          "code": "SK",
+          "name": "Slovakia",
+          "value": 3726788711.0,
+          "per_capita": 687.3370130479711,
+          "category_share_pct": 9.18216810833484
+        },
+        {
+          "code": "BE",
+          "name": "Belgium",
+          "value": 6985088426.0,
+          "per_capita": 589.0309594463432,
+          "category_share_pct": 1.6965592711088988
+        },
+        {
+          "code": "FI",
+          "name": "Finland",
+          "value": 3122720624.0,
+          "per_capita": 555.65303863353,
+          "category_share_pct": 5.365923217907661
+        },
+        {
+          "code": "AT",
+          "name": "Austria",
+          "value": 4056292495.0,
+          "per_capita": 441.95908152794374,
+          "category_share_pct": 4.725441613627497
+        }
+      ],
+      "highest": {
+        "code": "DE",
+        "name": "Germany",
+        "value": 36822338579.0
+      },
+      "lowest": {
+        "code": "MT",
+        "name": "Malta",
+        "value": 3740495.0
+      },
+      "count_nonzero": 27,
+      "change_2021_2025": {
+        "largest_increase": {
+          "code": "BE",
+          "name": "Belgium",
+          "start_value": 777558501.0,
+          "end_value": 1126665719.0,
+          "absolute_change": 349107218.0,
+          "pct_change": 44.89787167795365,
+          "end_per_capita": 95.00824455817335
+        },
+        "largest_decrease": {
+          "code": "DE",
+          "name": "Germany",
+          "start_value": 5273542846.0,
+          "end_value": 4230266526.0,
+          "absolute_change": -1043276320.0,
+          "pct_change": -19.783215012490675,
+          "end_per_capita": 50.651809108161295
+        }
+      }
+    },
+    "33": {
+      "top5": [
+        {
+          "code": "NL",
+          "name": "Netherlands",
+          "value": 458897949220.0,
+          "per_capita": 25503.56138457892,
+          "category_share_pct": 79.61909340243008
+        },
+        {
+          "code": "DE",
+          "name": "Germany",
+          "value": 356083093489.0,
+          "per_capita": 4263.620924874174,
+          "category_share_pct": 58.17243541691626
+        },
+        {
+          "code": "FR",
+          "name": "France",
+          "value": 264641729152.0,
+          "per_capita": 3860.4718860973344,
+          "category_share_pct": 59.8383801101899
+        },
+        {
+          "code": "BE",
+          "name": "Belgium",
+          "value": 255665213774.0,
+          "per_capita": 21559.458804531052,
+          "category_share_pct": 62.09673554221635
+        },
+        {
+          "code": "ES",
+          "name": "Spain",
+          "value": 224028891100.0,
+          "per_capita": 4586.166039971471,
+          "category_share_pct": 71.73257644538853
+        }
+      ],
+      "per_capita_top5": [
+        {
+          "code": "NL",
+          "name": "Netherlands",
+          "value": 458897949220.0,
+          "per_capita": 25503.56138457892,
+          "category_share_pct": 79.61909340243008
+        },
+        {
+          "code": "BE",
+          "name": "Belgium",
+          "value": 255665213774.0,
+          "per_capita": 21559.458804531052,
+          "category_share_pct": 62.09673554221635
+        },
+        {
+          "code": "LU",
+          "name": "Luxembourg",
+          "value": 8578205363.0,
+          "per_capita": 12670.684364531206,
+          "category_share_pct": 98.91038954606883
+        },
+        {
+          "code": "MT",
+          "name": "Malta",
+          "value": 5933366737.0,
+          "per_capita": 10430.514245482529,
+          "category_share_pct": 81.13971829240657
+        },
+        {
+          "code": "CY",
+          "name": "Cyprus",
+          "value": 13606732255.0,
+          "per_capita": 10017.604779419884,
+          "category_share_pct": 98.13009203047496
+        }
+      ],
+      "highest": {
+        "code": "NL",
+        "name": "Netherlands",
+        "value": 458897949220.0
+      },
+      "lowest": {
+        "code": "MT",
+        "name": "Malta",
+        "value": 5933366737.0
+      },
+      "count_nonzero": 27,
+      "change_2021_2025": {
+        "largest_increase": {
+          "code": "NL",
+          "name": "Netherlands",
+          "start_value": 71296113912.0,
+          "end_value": 81079393301.0,
+          "absolute_change": 9783279389.0,
+          "pct_change": 13.722037362478682,
+          "end_per_capita": 4506.041675695397
+        },
+        "largest_decrease": {
+          "code": "GR",
+          "name": "Greece",
+          "start_value": 13924118145.0,
+          "end_value": 12307660310.0,
+          "absolute_change": -1616457835.0,
+          "pct_change": -11.60904998195848,
+          "end_per_capita": null
+        }
+      }
+    },
+    "34": {
+      "top5": [
+        {
+          "code": "DE",
+          "name": "Germany",
+          "value": 181038194170.0,
+          "per_capita": 2167.6913253633325,
+          "category_share_pct": 29.575772764608395
+        },
+        {
+          "code": "IT",
+          "name": "Italy",
+          "value": 168018998273.0,
+          "per_capita": 2850.0643205950314,
+          "category_share_pct": 39.38922527377341
+        },
+        {
+          "code": "FR",
+          "name": "France",
+          "value": 144002259907.0,
+          "per_capita": 2100.638768068802,
+          "category_share_pct": 32.560480891100255
+        },
+        {
+          "code": "BE",
+          "name": "Belgium",
+          "value": 138042294967.0,
+          "per_capita": 11640.680903326782,
+          "category_share_pct": 33.52812749795433
+        },
+        {
+          "code": "NL",
+          "name": "Netherlands",
+          "value": 80777618825.0,
+          "per_capita": 4489.27035674301,
+          "category_share_pct": 14.014969535133565
+        }
+      ],
+      "per_capita_top5": [
+        {
+          "code": "BE",
+          "name": "Belgium",
+          "value": 138042294967.0,
+          "per_capita": 11640.680903326782,
+          "category_share_pct": 33.52812749795433
+        },
+        {
+          "code": "NL",
+          "name": "Netherlands",
+          "value": 80777618825.0,
+          "per_capita": 4489.27035674301,
+          "category_share_pct": 14.014969535133565
+        },
+        {
+          "code": "LT",
+          "name": "Lithuania",
+          "value": 10108830120.0,
+          "per_capita": 3499.950531077687,
+          "category_share_pct": 22.891165224979638
+        },
+        {
+          "code": "LV",
+          "name": "Latvia",
+          "value": 5375737213.0,
+          "per_capita": 2880.6966809279556,
+          "category_share_pct": 35.36979488504383
+        },
+        {
+          "code": "IT",
+          "name": "Italy",
+          "value": 168018998273.0,
+          "per_capita": 2850.0643205950314,
+          "category_share_pct": 39.38922527377341
+        }
+      ],
+      "highest": {
+        "code": "DE",
+        "name": "Germany",
+        "value": 181038194170.0
+      },
+      "lowest": {
+        "code": "LU",
+        "name": "Luxembourg",
+        "value": 39460040.0
+      },
+      "count_nonzero": 27,
+      "change_2021_2025": {
+        "largest_increase": {
+          "code": "FR",
+          "name": "France",
+          "start_value": 1551472969.0,
+          "end_value": 19788983739.0,
+          "absolute_change": 18237510770.0,
+          "pct_change": 1175.4965206873676,
+          "end_per_capita": 288.6725975666845
+        },
+        "largest_decrease": {
+          "code": "AT",
+          "name": "Austria",
+          "start_value": 4169730776.0,
+          "end_value": 1930283646.0,
+          "absolute_change": -2239447130.0,
+          "pct_change": -53.70723555798222,
+          "end_per_capita": 210.31678270887872
+        }
+      }
+    },
+    "35": {
+      "top5": [
+        {
+          "code": "DE",
+          "name": "Germany",
+          "value": 38172904447.0,
+          "per_capita": 457.0697040646761,
+          "category_share_pct": 6.2362152520667795
+        },
+        {
+          "code": "IT",
+          "name": "Italy",
+          "value": 37195907331.0,
+          "per_capita": 630.9448898391497,
+          "category_share_pct": 8.71995422054958
+        },
+        {
+          "code": "FR",
+          "name": "France",
+          "value": 23850883899.0,
+          "per_capita": 347.92572979968844,
+          "category_share_pct": 5.392944874134504
+        },
+        {
+          "code": "HU",
+          "name": "Hungary",
+          "value": 20813492499.0,
+          "per_capita": 2176.6733962799876,
+          "category_share_pct": 28.397971382761515
+        },
+        {
+          "code": "AT",
+          "name": "Austria",
+          "value": 11885836827.0,
+          "per_capita": 1295.0381496716816,
+          "category_share_pct": 13.846592183459395
+        }
+      ],
+      "per_capita_top5": [
+        {
+          "code": "SI",
+          "name": "Slovenia",
+          "value": 6232322640.0,
+          "per_capita": 2929.5490457835854,
+          "category_share_pct": 23.199357129957715
+        },
+        {
+          "code": "EE",
+          "name": "Estonia",
+          "value": 3823627983.0,
+          "per_capita": 2786.2083716802167,
+          "category_share_pct": 25.655873999417462
+        },
+        {
+          "code": "HU",
+          "name": "Hungary",
+          "value": 20813492499.0,
+          "per_capita": 2176.6733962799876,
+          "category_share_pct": 28.397971382761515
+        },
+        {
+          "code": "LT",
+          "name": "Lithuania",
+          "value": 5622002639.0,
+          "per_capita": 1946.489444229399,
+          "category_share_pct": 12.730868931114312
+        },
+        {
+          "code": "SK",
+          "name": "Slovakia",
+          "value": 9084646259.0,
+          "per_capita": 1675.4944024135436,
+          "category_share_pct": 22.383010045265006
+        }
+      ],
+      "highest": {
+        "code": "DE",
+        "name": "Germany",
+        "value": 38172904447.0
+      },
+      "lowest": {
+        "code": "MT",
+        "name": "Malta",
+        "value": 598366465.0
+      },
+      "count_nonzero": 25,
+      "change_2021_2025": {
+        "largest_increase": {
+          "code": "DE",
+          "name": "Germany",
+          "start_value": 4789571147.0,
+          "end_value": 7568017491.0,
+          "absolute_change": 2778446344.0,
+          "pct_change": 58.01033659851383,
+          "end_per_capita": 90.61693274532882
+        },
+        "largest_decrease": {
+          "code": "FR",
+          "name": "France",
+          "start_value": 3371250277.0,
+          "end_value": 935557882.0,
+          "absolute_change": -2435692395.0,
+          "pct_change": -72.24893421936825,
+          "end_per_capita": 13.647488296161145
+        }
+      }
+    }
+  },
+  "exports": {
+    "32": {
+      "top5": [
+        {
+          "code": "NL",
+          "name": "Netherlands",
+          "value": 26801396764.0,
+          "per_capita": 1489.5056051676481,
+          "category_share_pct": 5.516214750356097
+        },
+        {
+          "code": "PL",
+          "name": "Poland",
+          "value": 16148791618.0,
+          "per_capita": 441.71582095280826,
+          "category_share_pct": 33.49527681821007
+        },
+        {
+          "code": "DE",
+          "name": "Germany",
+          "value": 4193826877.0,
+          "per_capita": 50.21549283026907,
+          "category_share_pct": 2.1402324094929703
+        },
+        {
+          "code": "CZ",
+          "name": "Czechia",
+          "value": 2847873028.0,
+          "per_capita": 261.1522893843097,
+          "category_share_pct": 11.045258330273871
+        },
+        {
+          "code": "BE",
+          "name": "Belgium",
+          "value": 2754284679.0,
+          "per_capita": 232.2603305952384,
+          "category_share_pct": 0.8592069359157071
+        }
+      ],
+      "per_capita_top5": [
+        {
+          "code": "NL",
+          "name": "Netherlands",
+          "value": 26801396764.0,
+          "per_capita": 1489.5056051676481,
+          "category_share_pct": 5.516214750356097
+        },
+        {
+          "code": "LV",
+          "name": "Latvia",
+          "value": 1630650908.0,
+          "per_capita": 873.8170175186643,
+          "category_share_pct": 19.500502961537997
+        },
+        {
+          "code": "EE",
+          "name": "Estonia",
+          "value": 810128285.0,
+          "per_capita": 590.3257900186616,
+          "category_share_pct": 6.673377162098299
+        },
+        {
+          "code": "PL",
+          "name": "Poland",
+          "value": 16148791618.0,
+          "per_capita": 441.71582095280826,
+          "category_share_pct": 33.49527681821007
+        },
+        {
+          "code": "CZ",
+          "name": "Czechia",
+          "value": 2847873028.0,
+          "per_capita": 261.1522893843097,
+          "category_share_pct": 11.045258330273871
+        }
+      ],
+      "highest": {
+        "code": "NL",
+        "name": "Netherlands",
+        "value": 26801396764.0
+      },
+      "lowest": {
+        "code": "MT",
+        "name": "Malta",
+        "value": 3226.0
+      },
+      "count_nonzero": 27,
+      "share_change_2021_2025": {
+        "largest_gain": {
+          "code": "NL",
+          "name": "Netherlands",
+          "start_share_pct": 35.91585656173403,
+          "end_share_pct": 38.07213552799492,
+          "delta_pp": 2.156278966260885
+        },
+        "largest_loss": {
+          "code": "PL",
+          "name": "Poland",
+          "start_share_pct": 32.35999856861121,
+          "end_share_pct": 27.34207956755656,
+          "delta_pp": -5.017919001054651
+        }
+      },
+      "stable_exporter": {
+        "code": "DE",
+        "name": "Germany",
+        "coefficient_of_variation": 0.18419839290633513,
+        "mean_value": 838765375.4
+      },
+      "net_supplier": {
+        "code": "PL",
+        "name": "Poland",
+        "net_value": 3290048411.0,
+        "imports": 12858743207.0,
+        "exports": 16148791618.0
+      }
+    },
+    "33": {
+      "top5": [
+        {
+          "code": "NL",
+          "name": "Netherlands",
+          "value": 447756320684.0,
+          "per_capita": 24884.357904208107,
+          "category_share_pct": 92.15639179074
+        },
+        {
+          "code": "BE",
+          "name": "Belgium",
+          "value": 209341289530.0,
+          "per_capita": 17653.105172528652,
+          "category_share_pct": 65.30461041631281
+        },
+        {
+          "code": "DE",
+          "name": "Germany",
+          "value": 128571414407.0,
+          "per_capita": 1539.4714964845368,
+          "category_share_pct": 65.6137499517038
+        },
+        {
+          "code": "ES",
+          "name": "Spain",
+          "value": 119232715145.0,
+          "per_capita": 2440.850491946175,
+          "category_share_pct": 82.59738779516347
+        },
+        {
+          "code": "IT",
+          "name": "Italy",
+          "value": 104967581083.0,
+          "per_capita": 1780.5388720252763,
+          "category_share_pct": 91.0263916079252
+        }
+      ],
+      "per_capita_top5": [
+        {
+          "code": "NL",
+          "name": "Netherlands",
+          "value": 447756320684.0,
+          "per_capita": 24884.357904208107,
+          "category_share_pct": 92.15639179074
+        },
+        {
+          "code": "BE",
+          "name": "Belgium",
+          "value": 209341289530.0,
+          "per_capita": 17653.105172528652,
+          "category_share_pct": 65.30461041631281
+        },
+        {
+          "code": "LT",
+          "name": "Lithuania",
+          "value": 22467786680.0,
+          "per_capita": 7778.955723791131,
+          "category_share_pct": 81.5169018474187
+        },
+        {
+          "code": "CY",
+          "name": "Cyprus",
+          "value": 7496155266.0,
+          "per_capita": 5518.85047876656,
+          "category_share_pct": 99.99937909889329
+        },
+        {
+          "code": "SE",
+          "name": "Sweden",
+          "value": 57725814844.0,
+          "per_capita": 5461.43842219308,
+          "category_share_pct": 79.11387474672733
+        }
+      ],
+      "highest": {
+        "code": "NL",
+        "name": "Netherlands",
+        "value": 447756320684.0
+      },
+      "lowest": {
+        "code": "LU",
+        "name": "Luxembourg",
+        "value": 32622896.0
+      },
+      "count_nonzero": 27,
+      "share_change_2021_2025": {
+        "largest_gain": {
+          "code": "NL",
+          "name": "Netherlands",
+          "start_share_pct": 30.601906055379736,
+          "end_share_pct": 32.03992972971367,
+          "delta_pp": 1.4380236743339339
+        },
+        "largest_loss": {
+          "code": "BE",
+          "name": "Belgium",
+          "start_share_pct": 15.266392963641277,
+          "end_share_pct": 13.304237295907134,
+          "delta_pp": -1.9621556677341427
+        }
+      },
+      "stable_exporter": {
+        "code": "NL",
+        "name": "Netherlands",
+        "coefficient_of_variation": 0.18725449652719459,
+        "mean_value": 89551264136.8
+      },
+      "net_supplier": null
+    },
+    "34": {
+      "top5": [
+        {
+          "code": "BE",
+          "name": "Belgium",
+          "value": 96150207408.0,
+          "per_capita": 8108.050387692992,
+          "category_share_pct": 29.994330551438033
+        },
+        {
+          "code": "FR",
+          "name": "France",
+          "value": 33666025300.0,
+          "per_capita": 491.1045004268533,
+          "category_share_pct": 26.128524108781683
+        },
+        {
+          "code": "DE",
+          "name": "Germany",
+          "value": 22099766028.0,
+          "per_capita": 264.6152726560577,
+          "category_share_pct": 11.278156414785487
+        },
+        {
+          "code": "HU",
+          "name": "Hungary",
+          "value": 8038153204.0,
+          "per_capita": 840.6294251294046,
+          "category_share_pct": 28.50210348677252
+        },
+        {
+          "code": "NL",
+          "name": "Netherlands",
+          "value": 7513309971.0,
+          "per_capita": 417.5572420239881,
+          "category_share_pct": 1.546375797163574
+        }
+      ],
+      "per_capita_top5": [
+        {
+          "code": "BE",
+          "name": "Belgium",
+          "value": 96150207408.0,
+          "per_capita": 8108.050387692992,
+          "category_share_pct": 29.994330551438033
+        },
+        {
+          "code": "LV",
+          "name": "Latvia",
+          "value": 2768820909.0,
+          "per_capita": 1483.7282565360072,
+          "category_share_pct": 33.11156303966123
+        },
+        {
+          "code": "EE",
+          "name": "Estonia",
+          "value": 1986262877.0,
+          "per_capita": 1447.3537386116134,
+          "category_share_pct": 16.361706616990247
+        },
+        {
+          "code": "LT",
+          "name": "Lithuania",
+          "value": 3106534295.0,
+          "per_capita": 1075.5662353139137,
+          "category_share_pct": 11.27102793069402
+        },
+        {
+          "code": "HU",
+          "name": "Hungary",
+          "value": 8038153204.0,
+          "per_capita": 840.6294251294046,
+          "category_share_pct": 28.50210348677252
+        }
+      ],
+      "highest": {
+        "code": "BE",
+        "name": "Belgium",
+        "value": 96150207408.0
+      },
+      "lowest": {
+        "code": "CY",
+        "name": "Cyprus",
+        "value": 125.0
+      },
+      "count_nonzero": 27,
+      "share_change_2021_2025": {
+        "largest_gain": {
+          "code": "FR",
+          "name": "France",
+          "start_share_pct": 2.119700366893147,
+          "end_share_pct": 13.965270559156146,
+          "delta_pp": 11.845570192262999
+        },
+        "largest_loss": {
+          "code": "DE",
+          "name": "Germany",
+          "start_share_pct": 17.476048517857976,
+          "end_share_pct": 7.870782268403902,
+          "delta_pp": -9.605266249454074
+        }
+      },
+      "stable_exporter": {
+        "code": "NL",
+        "name": "Netherlands",
+        "coefficient_of_variation": 0.07899609925471282,
+        "mean_value": 1502661994.2
+      },
+      "net_supplier": {
+        "code": "DK",
+        "name": "Denmark",
+        "net_value": 1698225.0,
+        "imports": 4977762776.0,
+        "exports": 4979461001.0
+      }
+    },
+    "35": {
+      "top5": [
+        {
+          "code": "DE",
+          "name": "Germany",
+          "value": 41086930356.0,
+          "per_capita": 491.9612843402269,
+          "category_share_pct": 20.967861224017746
+        },
+        {
+          "code": "FR",
+          "name": "France",
+          "value": 33544824653.0,
+          "per_capita": 489.33648110571454,
+          "category_share_pct": 26.034459127872296
+        },
+        {
+          "code": "ES",
+          "name": "Spain",
+          "value": 16206633461.0,
+          "per_capita": 331.77110164744954,
+          "category_share_pct": 11.226999126912226
+        },
+        {
+          "code": "AT",
+          "name": "Austria",
+          "value": 15208614527.0,
+          "per_capita": 1657.0760900380933,
+          "category_share_pct": 50.94750997718334
+        },
+        {
+          "code": "CZ",
+          "name": "Czechia",
+          "value": 13577711310.0,
+          "per_capita": 1245.0872487443407,
+          "category_share_pct": 52.660117736411685
+        }
+      ],
+      "per_capita_top5": [
+        {
+          "code": "SI",
+          "name": "Slovenia",
+          "value": 9174154851.0,
+          "per_capita": 4312.378890194604,
+          "category_share_pct": 49.72765719501809
+        },
+        {
+          "code": "EE",
+          "name": "Estonia",
+          "value": 2652097630.0,
+          "per_capita": 1932.5354485510525,
+          "category_share_pct": 21.84647553158451
+        },
+        {
+          "code": "SK",
+          "name": "Slovakia",
+          "value": 9412087393.0,
+          "per_capita": 1735.8848426679926,
+          "category_share_pct": 46.485919282938646
+        },
+        {
+          "code": "AT",
+          "name": "Austria",
+          "value": 15208614527.0,
+          "per_capita": 1657.0760900380933,
+          "category_share_pct": 50.94750997718334
+        },
+        {
+          "code": "DK",
+          "name": "Denmark",
+          "value": 8679290620.0,
+          "per_capita": 1452.1168206348611,
+          "category_share_pct": 24.573803315975642
+        }
+      ],
+      "highest": {
+        "code": "DE",
+        "name": "Germany",
+        "value": 41086930356.0
+      },
+      "lowest": {
+        "code": "MT",
+        "name": "Malta",
+        "value": 8614478.0
+      },
+      "count_nonzero": 26,
+      "share_change_2021_2025": {
+        "largest_gain": {
+          "code": "RO",
+          "name": "Romania",
+          "start_share_pct": 1.24199616192299,
+          "end_share_pct": 3.859994455821012,
+          "delta_pp": 2.617998293898022
+        },
+        "largest_loss": {
+          "code": "DE",
+          "name": "Germany",
+          "start_share_pct": 20.352378060574594,
+          "end_share_pct": 15.051451165014157,
+          "delta_pp": -5.300926895560437
+        }
+      },
+      "stable_exporter": {
+        "code": "FR",
+        "name": "France",
+        "coefficient_of_variation": 0.1436474357795575,
+        "mean_value": 6708964930.6
+      },
+      "net_supplier": {
+        "code": "FR",
+        "name": "France",
+        "net_value": 9693940754.0,
+        "imports": 23850883899.0,
+        "exports": 33544824653.0
+      }
+    }
+  },
+  "hungary": {
+    "32": {
+      "years": [
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "hu_imports": [
+        208916550.0,
+        325566829.0,
+        136583601.0,
+        67939996.0,
+        32067736.0
+      ],
+      "hu_exports": [
+        133712108.0,
+        72045196.0,
+        42048690.0,
+        51330555.0,
+        8092636.0
+      ],
+      "hu_balance": [
+        -75204442.0,
+        -253521633.0,
+        -94534911.0,
+        -16609441.0,
+        -23975100.0
+      ],
+      "eu_avg_imports": [
+        721639891.3333334,
+        1999483936.2592592,
+        1114942884.074074,
+        746473437.2222222,
+        564445036.2592592
+      ],
+      "eu_avg_exports": [
+        311385750.8518519,
+        753989514.7692307,
+        557681739.7692307,
+        393210995.84,
+        317770679.8076923
+      ]
+    },
+    "33": {
+      "years": [
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "hu_imports": [
+        4269951986.0,
+        5835960397.0,
+        5311133454.0,
+        4926279494.0,
+        4423920005.0
+      ],
+      "hu_exports": [
+        1338652588.0,
+        1904998626.0,
+        2109506471.0,
+        2187915309.0,
+        2238690881.0
+      ],
+      "hu_balance": [
+        -2931299398.0,
+        -3930961771.0,
+        -3201626983.0,
+        -2738364185.0,
+        -2185229124.0
+      ],
+      "eu_avg_imports": [
+        13981108764.925926,
+        23646371156.25926,
+        19510069004.88889,
+        18842285187.037037,
+        15835906069.0
+      ],
+      "eu_avg_exports": [
+        7494086709.518518,
+        13192983317.037037,
+        11507746600.296297,
+        10893631381.592592,
+        9458694388.333334
+      ]
+    },
+    "34": {
+      "years": [
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "hu_imports": [
+        3833269749.0,
+        11258654431.0,
+        4419794742.0,
+        3535652836.0,
+        3892996388.0
+      ],
+      "hu_exports": [
+        1834270923.0,
+        3096214118.0,
+        832916422.0,
+        796386935.0,
+        1478364806.0
+      ],
+      "hu_balance": [
+        -1998998826.0,
+        -8162440313.0,
+        -3586878320.0,
+        -2739265901.0,
+        -2414631582.0
+      ],
+      "eu_avg_imports": [
+        4334951725.555555,
+        14504595235.814816,
+        7287815684.111111,
+        4953865395.185185,
+        5345030216.777778
+      ],
+      "eu_avg_exports": [
+        909121316.6538461,
+        3734889521.8,
+        1714617232.68,
+        1120179198.2307692,
+        1183001167.8461537
+      ]
+    },
+    "35": {
+      "years": [
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "hu_imports": [
+        3099536420.0,
+        7096492332.0,
+        3770458092.0,
+        3438594292.0,
+        3408411363.0
+      ],
+      "hu_exports": [
+        1344646475.0,
+        3148635410.0,
+        1521298544.0,
+        1784783298.0,
+        2277454849.0
+      ],
+      "hu_balance": [
+        -1754889945.0,
+        -3947856922.0,
+        -2249159548.0,
+        -1653810994.0,
+        -1130956514.0
+      ],
+      "eu_avg_imports": [
+        1530781407.9166667,
+        3805043596.04,
+        1728976238.48,
+        1461176629.84,
+        1586990242.72
+      ],
+      "eu_avg_exports": [
+        1386589582.8,
+        3046206786.6923075,
+        1646955113.2307692,
+        1349398610.3846154,
+        1423929497.3846154
+      ]
+    },
+    "summary": [
+      {
+        "sitc": "32",
+        "label": "Coal, coke and briquettes",
+        "import_2025": 32067736.0,
+        "export_2025": 8092636.0,
+        "balance_2025": -23975100.0,
+        "import_per_capita_2025": 3.353641289825995,
+        "import_vs_eu_avg_2025_pct": -94.31871414575241
+      },
+      {
+        "sitc": "33",
+        "label": "Petroleum, petroleum products and related materials",
+        "import_2025": 4423920005.0,
+        "export_2025": 2238690881.0,
+        "balance_2025": -2185229124.0,
+        "import_per_capita_2025": 462.65320357056765,
+        "import_vs_eu_avg_2025_pct": -72.06399188196649
+      },
+      {
+        "sitc": "34",
+        "label": "Gas, natural and manufactured",
+        "import_2025": 3892996388.0,
+        "export_2025": 1478364806.0,
+        "balance_2025": -2414631582.0,
+        "import_per_capita_2025": 407.1292537752044,
+        "import_vs_eu_avg_2025_pct": -27.166054631831965
+      },
+      {
+        "sitc": "35",
+        "label": "Electric current",
+        "import_2025": 3408411363.0,
+        "export_2025": 2277454849.0,
+        "balance_2025": -1130956514.0,
+        "import_per_capita_2025": 356.4513902593216,
+        "import_vs_eu_avg_2025_pct": 114.77204277943136
+      }
+    ]
+  }
+}

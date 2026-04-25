@@ -1,0 +1,1 @@
+import{o as t,e as s,g as o,i as a}from"./modules/vue-CD9mGuDB.js";import{u as r}from"./slidev/context-yrNjdjCD.js";const c={class:"h-full flex items-center justify-center"},l={class:"w-full max-w-5xl px-12 mx-auto"},u={__name:"centered",setup(n){return r(),(e,_)=>(t(),s("div",c,[o("div",l,[a(e.$slots,"default")])]))}};export{u as _};

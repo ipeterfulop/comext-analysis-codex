@@ -71,6 +71,24 @@ def format_eur(value: float | int | None) -> str:
     return f"€{int(round(value)):,}"
 
 
+def format_eur_person(value: float | int | None) -> str:
+    if value is None:
+        return "—"
+    return f"€{value:,.0f}/person"
+
+
+def format_pct(value: float | int | None) -> str:
+    if value is None:
+        return "n/a"
+    return f"{value:+.1f}%"
+
+
+def format_pp(value: float | int | None) -> str:
+    if value is None:
+        return "n/a"
+    return f"{value:+.1f} pp"
+
+
 def format_population(value: int | float | None) -> str:
     if value is None:
         return "—"
@@ -262,19 +280,55 @@ def ranking_slide(bundle: dict, section: str, flow_label: str, sitc: str) -> str
     highest = data["highest"]
     lowest = data["lowest"]
 
-    if data["count_nonzero"] < 2 or not lowest:
-        lowest_html = """
-<div class="rounded-lg border border-neutral-300 px-5 py-4">
-  <div class="text-xs uppercase tracking-[0.18em] opacity-60">Lowest</div>
-  <div class="text-xl font-semibold mt-1">insufficient data</div>
+    if section == "imports":
+        per_capita = data["per_capita_top5"][0] if data["per_capita_top5"] else None
+        change = data["change_2021_2025"]
+        increase = change["largest_increase"]
+        decrease = change["largest_decrease"]
+        top_share = data["top5"][0].get("category_share_pct") if data["top5"] else None
+        top_share_text = f"{top_share:.1f}%" if top_share is not None else "n/a"
+        insight_html = f"""
+<div class="grid grid-cols-3 gap-4 mt-4">
+  <div class="rounded-lg border border-neutral-300 px-4 py-3">
+    <div class="text-xs uppercase tracking-[0.16em] opacity-60">Per-capita exposure</div>
+    <div class="text-xl font-semibold mt-1">{per_capita["code"] if per_capita else "n/a"} · {per_capita["name"] if per_capita else "n/a"}</div>
+    <div class="opacity-80 mt-1">{format_eur_person(per_capita["per_capita"] if per_capita else None)}</div>
+  </div>
+  <div class="rounded-lg border border-neutral-300 px-4 py-3">
+    <div class="text-xs uppercase tracking-[0.16em] opacity-60">2021 to 2025 movement</div>
+    <div class="text-xl font-semibold mt-1">Up: {increase["code"] if increase else "n/a"} / Down: {decrease["code"] if decrease else "n/a"}</div>
+    <div class="opacity-80 mt-1">{format_eur(increase["absolute_change"] if increase else None)} · {format_pct(increase["pct_change"] if increase else None)}</div>
+  </div>
+  <div class="rounded-lg border border-neutral-300 px-4 py-3">
+    <div class="text-xs uppercase tracking-[0.16em] opacity-60">Category concentration</div>
+    <div class="text-xl font-semibold mt-1">{highest["code"]} · {highest["name"]}</div>
+    <div class="opacity-80 mt-1">{top_share_text} of its energy imports</div>
+  </div>
 </div>
 """.strip()
     else:
-        lowest_html = f"""
-<div class="rounded-lg border border-neutral-300 px-5 py-4">
-  <div class="text-xs uppercase tracking-[0.18em] opacity-60">Lowest {flow_label}</div>
-  <div class="text-2xl font-semibold mt-1">{lowest["code"]} · {lowest["name"]}</div>
-  <div class="opacity-80 mt-1">{format_eur(lowest["value"])}</div>
+        share = data["share_change_2021_2025"]
+        gain = share["largest_gain"]
+        stable = data["stable_exporter"]
+        supplier = data["net_supplier"]
+        stable_cv = f"{stable['coefficient_of_variation'] * 100:.1f}%" if stable else "n/a"
+        insight_html = f"""
+<div class="grid grid-cols-3 gap-4 mt-4">
+  <div class="rounded-lg border border-neutral-300 px-4 py-3">
+    <div class="text-xs uppercase tracking-[0.16em] opacity-60">EU share shift</div>
+    <div class="text-xl font-semibold mt-1">{gain["code"] if gain else "n/a"} · {gain["name"] if gain else "n/a"}</div>
+    <div class="opacity-80 mt-1">{format_pp(gain["delta_pp"] if gain else None)} from 2021 to 2025</div>
+  </div>
+  <div class="rounded-lg border border-neutral-300 px-4 py-3">
+    <div class="text-xs uppercase tracking-[0.16em] opacity-60">Stable exporter</div>
+    <div class="text-xl font-semibold mt-1">{stable["code"] if stable else "n/a"} · {stable["name"] if stable else "n/a"}</div>
+    <div class="opacity-80 mt-1">CV {stable_cv} across yearly exports</div>
+  </div>
+  <div class="rounded-lg border border-neutral-300 px-4 py-3">
+    <div class="text-xs uppercase tracking-[0.16em] opacity-60">Net supplier signal</div>
+    <div class="text-xl font-semibold mt-1">{supplier["code"] if supplier else "none"} · {supplier["name"] if supplier else "net import market"}</div>
+    <div class="opacity-80 mt-1">{format_eur(supplier["net_value"] if supplier else None)} export surplus</div>
+  </div>
 </div>
 """.strip()
 
@@ -288,7 +342,7 @@ def ranking_slide(bundle: dict, section: str, flow_label: str, sitc: str) -> str
                     f"Data comes from extracted monthly CSV-formatted .dat files under "
                     f"data/comext_raw_2021..2025/, filtered to PRODUCT_SITC LIKE '{sitc}%'"
                 ),
-                "The chart component uses the default Chart.js color handling without any external colorscheme plugin.",
+                "The chart component applies the Chart.js default color palette directly and uses no external colorscheme plugin.",
             ],
         },
         f"""
@@ -298,14 +352,7 @@ def ranking_slide(bundle: dict, section: str, flow_label: str, sitc: str) -> str
 
 <BarRanking :items='{chart_items}' label="VALUE_EUR" />
 
-<div class="grid grid-cols-2 gap-8 mt-4">
-  <div class="rounded-lg border border-neutral-300 px-5 py-4">
-    <div class="text-xs uppercase tracking-[0.18em] opacity-60">Highest {flow_label}</div>
-    <div class="text-2xl font-semibold mt-1">{highest["code"]} · {highest["name"]}</div>
-    <div class="opacity-80 mt-1">{format_eur(highest["value"])}</div>
-  </div>
-  {lowest_html}
-</div>
+{insight_html}
 """,
     )
 
@@ -315,7 +362,7 @@ def imports_section(bundle: dict) -> str:
         chapter_intro(
             "chapter-imports",
             "Chapter 1 — Imports",
-            "This chapter ranks the top EU importers in each SITC energy category and calls out the highest and lowest non-zero importer in the same scope.",
+            "This chapter reads energy imports through absolute scale, per-capita exposure, category concentration, and 2021-to-2025 movement.",
         )
     ]
     for sitc in SITC_ORDER:
@@ -328,7 +375,7 @@ def exports_section(bundle: dict) -> str:
         chapter_intro(
             "chapter-exports",
             "Chapter 2 — Exports",
-            "This chapter ranks the top EU exporters in each SITC energy category and calls out the highest and lowest non-zero exporter in the same scope.",
+            "This chapter reads energy exports through scale, EU share shifts, trend stability, and net supplier signals.",
         )
     ]
     for sitc in SITC_ORDER:
@@ -382,6 +429,7 @@ def hungary_commentary(payload: dict) -> list[str]:
 
     bullets = [
         f"Hungary imports moved {change_text(hu_imports)}, while exports moved {change_text(hu_exports)}.",
+        f"The 2025 trade balance is {format_eur(payload['hu_balance'][-1])}, where negative values indicate net import exposure.",
         f"Across the available years, Hungary stayed {import_position} the EU-27 average on imports and {export_position} it on exports.",
     ]
 
@@ -426,6 +474,12 @@ def hungary_slide(bundle: dict, sitc: str) -> str:
                         "dashed": False,
                     },
                     {
+                        "label": "HU balance",
+                        "values": payload["hu_balance"],
+                        "color": PAIRED12[5],
+                        "dashed": False,
+                    },
+                    {
                         "label": "EU-27 avg imports",
                         "values": payload["eu_avg_imports"],
                         "color": PAIRED12[0],
@@ -449,7 +503,7 @@ def hungary_slide(bundle: dict, sitc: str) -> str:
             "layout": "default",
             "agent_notes": [
                 "Hungary lines are solid and EU-average lines are dashed.",
-                "The line chart uses fixed colors from brewer.Paired12 directly to preserve import/export semantics.",
+                "The line chart uses explicit Chart.js colors to preserve import/export/balance semantics.",
                 "Missing Hungarian years render as gaps because absent yearly aggregates are stored as null in the analysis bundle.",
             ],
         },
@@ -465,14 +519,72 @@ def hungary_slide(bundle: dict, sitc: str) -> str:
     )
 
 
+def hungary_summary_slide(bundle: dict) -> str:
+    rows = []
+    summary = bundle["hungary"]["summary"]
+    vulnerability = max(
+        [row for row in summary if row["import_per_capita_2025"] is not None],
+        key=lambda row: row["import_per_capita_2025"],
+        default=None,
+    )
+    for row in summary:
+        rows.append(
+            "| "
+            + " | ".join(
+                [
+                    f"SITC {row['sitc']}",
+                    row["label"],
+                    format_eur(row["import_2025"]),
+                    format_eur(row["export_2025"]),
+                    format_eur(row["balance_2025"]),
+                    format_eur_person(row["import_per_capita_2025"]),
+                    format_pct(row["import_vs_eu_avg_2025_pct"]),
+                ]
+            )
+            + " |"
+        )
+
+    vulnerability_text = (
+        f"Highest 2025 per-capita import exposure: SITC {vulnerability['sitc']} · {vulnerability['label']} "
+        f"at {format_eur_person(vulnerability['import_per_capita_2025'])}."
+        if vulnerability
+        else "No Hungary per-capita import exposure could be computed."
+    )
+
+    return slide(
+        {
+            "id": "hungary-scorecard",
+            "layout": "default",
+            "agent_notes": [
+                "Hungary scorecard summarizes 2025 imports, exports, balance, per-capita exposure, and EU-average position.",
+            ],
+        },
+        f"""
+# Hungary risk scorecard
+
+<div class="text-sm opacity-70 -mt-2 mb-3">2025 category snapshot before the SITC trend slides</div>
+
+| Category | Label | Imports | Exports | Balance | Import exposure | vs EU avg imports |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+{chr(10).join(rows)}
+
+<div class="mt-5 rounded-lg border border-neutral-300 px-5 py-4">
+  <div class="text-xs uppercase tracking-[0.16em] opacity-60">Primary vulnerability signal</div>
+  <div class="text-xl font-semibold mt-1">{vulnerability_text}</div>
+</div>
+""",
+    )
+
+
 def hungary_section(bundle: dict) -> str:
     parts = [
         chapter_intro(
             "chapter-hungary",
             "Chapter 3 — Hungary",
-            "This chapter tracks Hungary’s yearly imports and exports in each SITC energy category and compares them with EU-27 averages.",
+            "This chapter starts with Hungary’s energy-trade risk scorecard, then tracks each SITC category against EU-27 benchmarks.",
         )
     ]
+    parts.append(hungary_summary_slide(bundle))
     for sitc in SITC_ORDER:
         parts.append(hungary_slide(bundle, sitc))
     return "\n".join(part.strip() for part in parts) + "\n"

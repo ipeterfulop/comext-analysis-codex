@@ -143,69 +143,51 @@ If the source uses a different classification, first map it to the closest SITC 
 
 #### 2.3 Analytical rules
 
-Include the followings in the reports:
+The deck must be useful as a quick business exploration of EU energy trade, not only as a
+subagent workflow showcase. Keep the analysis aligned with the aggregate data model used by
+the repository: `REPORTER`, `FLOW`, `PRODUCT_SITC` category, `YEAR`, `VALUE_EUR`,
+`QUANTITY_KG`, and population. Do not require partner, product, BEC, CPA, or statistical
+procedure questions unless the aggregation layer is explicitly extended to retain those fields.
 
-##### A. Core Logic & Threshold Queries
+##### A. Imports analysis (`FLOW = 1`)
 
-###### Q1: Countries that decreased coal import by at least 5%
-* **Filter:** `FLOW == 'I'` (Import), `PRODUCT_SITC` or `PRODUCT_NC` matching Coal categories (e.g., SITC 321, 322).
-* **Aggregation:** Sum `VALUE_EUR` by `REPORTER` and `PERIOD`.
-* **Calculation:** Identify reporters where $(V_{t} - V_{t-1}) / V_{t-1} \le -0.05$.
+For each SITC energy category, include:
 
-###### Q2: Count of countries that increased electric energy import by at least 5%
-* **Filter:** `FLOW == 'I'`, `PRODUCT_SITC` '351' (Electric current).
-* **Aggregation:** Sum `VALUE_EUR` by `REPORTER` and `PERIOD`.
-* **Calculation:** Count unique `REPORTER` where $(V_{t} - V_{t-1}) / V_{t-1} \ge 0.05$.
+1. **Top importers by value** — top 5 EU reporter countries by total `VALUE_EUR`, 2021-2025.
+2. **Per-capita exposure** — top importer by `VALUE_EUR / population`, so small high-exposure countries are visible.
+3. **2021 to 2025 movement** — largest absolute increase and decrease in import value by reporter.
+4. **Category concentration** — share of the leading importer's total energy imports represented by the current SITC category.
 
----
+##### B. Exports analysis (`FLOW = 2`)
 
-##### B. Suggestion Set A: Import Analysis (FLOW = 'I')
-1. **Top Products:** Which 5 products (by `PRODUCT_NC`) account for the highest total `VALUE_EUR`?
-2. **Partner Reliance:** Which `PARTNER` country is the primary source of goods by total `QUANTITY_KG`?
-3. **Value vs. Mass:** Is there a significant correlation between `VALUE_EUR` and `QUANTITY_KG`, or are high-value low-weight goods (e.g., electronics) dominating?
-4. **Growth Trends:** What is the month-over-month growth rate of total import value?
-5. **Price Volatility:** Which `PRODUCT_SECTION` shows the highest volatility in import pricing (Value/Quantity) over time?
-6. **Exclusive Sourcing:** Are there any `REPORTER` countries that import specific product categories exclusively from a single `PARTNER`?
-7. **BEC Classification:** What is the average `VALUE_EUR` per unit for different `PRODUCT_BEC` categories?
-8. **Anomalies:** Which imports have a `QUANTITY_SUPPL_UNIT` of 0 despite having a high `VALUE_EUR`?
-9. **CPA Distribution:** How does the distribution of imports across `PRODUCT_CPA21` differ between major and minor `REPORTER` countries?
-10. **Market Shift:** Which partner countries have seen a steady increase in their share of total imports over the available timeframe?
+For each SITC energy category, include:
 
----
+1. **Top exporters by value** — top 5 EU reporter countries by total `VALUE_EUR`, 2021-2025.
+2. **EU share shift** — reporter with the largest gain in EU export share between 2021 and 2025.
+3. **Trend stability** — the most stable exporter among the top exporters, using coefficient of variation across yearly export values.
+4. **Net supplier signal** — reporter with the largest positive `exports - imports` balance for the category.
 
-##### C. Suggestion Set B: Export Analysis (FLOW = 'E')
-1. **Export Engines:** What are the top 3 product categories driving the `VALUE_EUR` for the `REPORTER` countries?
-2. **Declining Partners:** Which `PARTNER` countries are becoming less reliant on exports from the `REPORTER` group (negative growth)?
-3. **Currency Impact:** What is the ratio of `VALUE_NAC` to `VALUE_EUR`? Does this suggest currency fluctuations impacting export attractiveness?
-4. **Administrative Efficiency:** Which `STAT_PROCEDURE` is most commonly used for high-value exports?
-5. **Raw vs. Finished:** Are exports concentrated in raw materials (`BEC` codes for primary goods) or finished consumer goods?
-6. **Seasonality:** What is the seasonal trend for exports? Are there spikes in specific `PERIOD` values?
-7. **Diversity Index:** Which `REPORTER` has the most diverse export portfolio (highest number of unique `PRODUCT_NC` codes)?
-8. **Mass Analysis:** What is the average weight (`QUANTITY_KG`) of the top 10% most expensive exports?
-9. **Super-Partners:** Which `PARTNER` appears in the top 5 for more than 50% of the `REPORTER` countries?
-10. **Data Granularity:** How much export value is attributed to "Unknown" or generic codes (e.g., `48XXXXXX`)?
+##### C. Hungary analysis (`REPORTER = 'HU'`)
 
----
+Include a Hungary scorecard before the SITC trend slides:
 
-##### 4. Suggestion Set C: Hungary Analysis (REPORTER = 'HU')
-1. **Trade Balance:** What is Hungary’s trade balance (Total Export Value - Total Import Value) per `PERIOD`?
-2. **Energy Security:** Who are Hungary's top 5 trading partners for energy-related products (`SITC` 3xx)?
-3. **Growth Drivers:** Which specific `PRODUCT_NC` code represents Hungary's fastest-growing export?
-4. **Benchmarking:** How does Hungary’s export-to-import ratio compare to the regional average (e.g., vs. Austria)?
-5. **Intermediate Goods:** What percentage of Hungary's imports are "Intermediate Goods" based on `PRODUCT_BEC`?
-6. **Procedure Types:** Are Hungary's exports primarily moving via `STAT_PROCEDURE` 1 (normal trade) or specialized regimes?
-7. **Partner Value:** Which `PARTNER` country has the highest average value per shipment/record to Hungary?
-8. **Single-Source Risk:** Does Hungary show a dependency (over 70% share) on a single `PARTNER` for any specific `PRODUCT_CPA22`?
-9. **Manufacturing Volume:** What is the total volume (`QUANTITY_KG`) of Hungary's trade in the manufacturing sector (`PRODUCT_SECTION` 06-15)?
-10. **Exchange Rate Variance:** Are there specific months where Hungary's `VALUE_NAC` deviates significantly from `VALUE_EUR` trends?
+1. **2025 trade balance** — imports, exports, and `exports - imports` for each SITC category.
+2. **Per-capita import exposure** — 2025 imports divided by Hungary's population.
+3. **EU benchmark position** — Hungary's 2025 import value compared with the EU-27 average.
+4. **Primary vulnerability signal** — the SITC category with the highest Hungarian per-capita import exposure.
+
+Then include one trend slide per SITC category showing Hungary imports, exports, trade balance,
+and EU-27 average import/export benchmarks from 2021 to 2025.
 
 
 #### 2.4 Charting library
 
 Use Vue and Chart.js only. No other charting library may be used.
 
-Install the `chartjs-plugin-colorschemes` plugin and apply the `brewer.Paired12` scheme to every chart.
-If the plugin is unavailable or unsuitable in practice, fall back to the default Chart.js colorscheme and note that choice in `agent_notes`.
+Do not use `chartjs-plugin-colorschemes`. Use Chart.js built-in/default colors or an explicit
+array matching the Chart.js default categorical palette. If a chart must pin semantic colors
+for readability, for example Hungary imports versus exports versus balance, define those colors
+directly in the Vue component or generated chart series and note that choice in `agent_notes`.
 
 ### 3. Execution model, outputs, and runtime
 
@@ -412,9 +394,9 @@ include the country-population slide directly after the dataset-description slid
 - **agent_notes**:
   - Roadmap slide only; do not render chapter contents here.
   - The three chapters that follow are:
-    1. **Imports** — top 5 EU reporter countries per SITC energy category, with highest and lowest importer callouts
-    2. **Exports** — same treatment for exports
-    3. **Hungary** — yearly imports and exports compared against the EU-27 average
+    1. **Imports** — top EU importers per SITC category, per-capita exposure, 2021-to-2025 movement, and category concentration
+    2. **Exports** — top EU exporters per SITC category, EU share shifts, trend stability, and net supplier signals
+    3. **Hungary** — a risk scorecard plus yearly imports, exports, balance, and EU-27 benchmarks
 
 ### 5. Chapter subagent outputs
 
@@ -432,7 +414,7 @@ and leave final deck assembly to the lead agent.
 
 #### 5.1 Data access contract
 
-- **Source CSVs**: `data/comext_raw_<year>/*.csv` for `<year>` in `2021`, `2022`, `2023`, `2024`, `2025`
+- **Source files**: `data/comext_raw_<year>/full_*.dat` for `<year>` in `2021`, `2022`, `2023`, `2024`, `2025`; these extracted `.dat` files are CSV-formatted
 - **Column reference**: `docs/comext_investigation.md`
 - Columns used by this spec:
   - `REPORTER` — 2-letter code of the reporting country; this is the country axis for ranking slides
@@ -450,13 +432,17 @@ and leave final deck assembly to the lead agent.
 
 - **Imports by country**: `sum(VALUE_EUR)` where `FLOW = 1`, grouped by `REPORTER`, filtered to the current SITC category
 - **Exports by country**: `sum(VALUE_EUR)` where `FLOW = 2`, grouped by `REPORTER`, filtered to the current SITC category
-- **Highest importer or exporter**: the `REPORTER` with the largest aggregate for the flow and SITC category
-- **Lowest importer or exporter**: the `REPORTER` with the smallest strictly positive aggregate; if fewer than 2 reporters have non-zero data, note this in `agent_notes` and render `insufficient data` instead of a callout
+- **Per-capita exposure**: `sum(VALUE_EUR) / population`, grouped by `REPORTER`, filtered to the current SITC category
+- **Category concentration**: current SITC category value divided by the reporter's total energy-trade value for the same flow across SITC `32`, `33`, `34`, and `35`
+- **2021 to 2025 movement**: `VALUE_EUR_2025 - VALUE_EUR_2021`, with percentage change when 2021 is non-zero
+- **EU export share shift**: reporter's category export share in 2025 minus its category export share in 2021, measured in percentage points
+- **Trend stability**: coefficient of variation across yearly export values for top exporters
+- **Net supplier signal**: `sum(exports VALUE_EUR) - sum(imports VALUE_EUR)` for the same reporter and SITC category
 - **EU-27 average**: per-year mean of per-country aggregates across EU reporters, excluding aggregate reporter codes
 
 #### 5.3 Charting conventions
 
-- Library: Vue and Chart.js only, with the `brewer.Paired12` colorscheme when available
+- Library: Vue and Chart.js only, using Chart.js default categorical colors or explicit Chart.js-compatible colors for semantic series
 - Top-N ranking: horizontal bar chart, sorted descending
 - Multi-year trend: line chart, x-axis is year `2021–2025`, one line per series
 - Always show units, either `EUR` or `€`, and format large numbers with thousands separators
@@ -473,24 +459,29 @@ Every chapter emits one dynamic slide per category, in this order:
 | `34` | Gas, natural and manufactured |
 | `35` | Electric current |
 
-#### 5.5 Template — category ranking
+#### 5.5 Template — category business view
 
 Used by the Imports subagent and the Exports subagent.
 
 - **id**: `<chapter>-<sitc>`, for example `imports-33` or `exports-34`
-- **layout**: title + chart + callouts, with chart on top and callouts beneath
+- **layout**: title + chart + insight cards, with chart on top and insight cards beneath
 - **title** (GENERATE): `"<Imports|Exports> — SITC <code> · <label>"`
 - **subtitle** (GENERATE): `"Top 5 EU reporter countries, 2021–2025, by total VALUE_EUR"`
 - **body**:
   - **Chart**: horizontal bar showing the top 5 reporters by the current flow metric for the current SITC category
-  - **Callouts**:
-    - **Highest** `<flow>` — country code, full name, total `VALUE_EUR`
-    - **Lowest** `<flow>` — country code, full name, total `VALUE_EUR`, or `insufficient data` when needed
+  - **Imports insight cards**:
+    - Per-capita exposure leader — country code, full name, and `VALUE_EUR / population`
+    - 2021 to 2025 movement — largest absolute increase and largest absolute decrease
+    - Category concentration — current SITC share of the leading importer's total energy imports
+  - **Exports insight cards**:
+    - EU share shift — reporter with the largest export-share gain from 2021 to 2025
+    - Stable exporter — most stable top exporter using coefficient of variation
+    - Net supplier signal — reporter with the largest positive `exports - imports` value
 - **styling**:
   - Chart full width at roughly 60% of slide height
-  - Callouts equal width with `gap-8`
+  - Insight cards equal width with `gap-4`
 - **agent_notes**:
-  - Data comes from `data/comext_raw_2021..2025/*.csv`, filtered to `PRODUCT_SITC LIKE '<code>%'`
+  - Data comes from CSV-formatted `.dat` files under `data/comext_raw_2021..2025/`, filtered to `PRODUCT_SITC LIKE '<code>%'`
   - If fewer than 5 reporters have non-zero data, render what is available and note the count in the subtitle
 
 #### 5.6 Template — Hungary trend
@@ -505,12 +496,13 @@ Used by the Hungary subagent.
   - **Chart**: multi-series line chart with one point per year
     - Series 1 — `HU imports`: yearly `sum(VALUE_EUR)` where `REPORTER = 'HU' AND FLOW = 1`
     - Series 2 — `HU exports`: yearly `sum(VALUE_EUR)` where `REPORTER = 'HU' AND FLOW = 2`
-    - Series 3 — `EU-27 avg imports`: yearly mean across EU reporters for `FLOW = 1`
-    - Series 4 — `EU-27 avg exports`: yearly mean across EU reporters for `FLOW = 2`
-  - **Commentary** (GENERATE): 2 to 3 short bullets on the most salient trend, including direction of change, outlier years, and whether Hungary is above or below the EU average
+    - Series 3 — `HU balance`: yearly `HU exports - HU imports`
+    - Series 4 — `EU-27 avg imports`: yearly mean across EU reporters for `FLOW = 1`
+    - Series 5 — `EU-27 avg exports`: yearly mean across EU reporters for `FLOW = 2`
+  - **Commentary** (GENERATE): 2 to 3 short bullets on the most salient trend, including direction of change, 2025 balance, and whether Hungary is above or below the EU average
 - **styling**:
   - Hungary lines solid; EU-average lines dashed
-  - Use one color for imports and another for exports
+  - Use distinct semantic colors for imports, exports, and balance
 - **agent_notes**:
   - If a year is missing for Hungary, render a gap instead of interpolating
   - If the category has no Hungarian trade at all, replace the chart with one line of commentary saying so and keep the slide for structural consistency
@@ -523,8 +515,8 @@ This is a standalone Codex subagent task. The subagent writes `imports-output.md
    - **id**: `chapter-imports`
    - **layout**: centered section divider
    - **title**: `Chapter 1 — Imports`
-   - **subtitle** (GENERATE): one sentence describing that the chapter covers the top 5 EU importers per SITC energy category, with highest and lowest importer callouts
-2. Create one ranking slide per SITC category from Section 5.4 using the template in Section 5.5 with `<chapter> = imports` and `FLOW = 1`.
+   - **subtitle** (GENERATE): one sentence describing that the chapter covers import scale, per-capita exposure, category concentration, and 2021-to-2025 movement
+2. Create one business-view slide per SITC category from Section 5.4 using the template in Section 5.5 with `<chapter> = imports` and `FLOW = 1`.
 
 Do not include the opening slides, Exports slides, or Hungary slides in this file.
 
@@ -536,8 +528,8 @@ This is a standalone Codex subagent task. The subagent writes `exports-output.md
    - **id**: `chapter-exports`
    - **layout**: centered section divider
    - **title**: `Chapter 2 — Exports`
-   - **subtitle** (GENERATE): one sentence describing that the chapter covers the top 5 EU exporters per SITC energy category, with highest and lowest exporter callouts
-2. Create one ranking slide per SITC category from Section 5.4 using the template in Section 5.5 with `<chapter> = exports` and `FLOW = 2`.
+   - **subtitle** (GENERATE): one sentence describing that the chapter covers export scale, EU share shifts, stability, and net supplier signals
+2. Create one business-view slide per SITC category from Section 5.4 using the template in Section 5.5 with `<chapter> = exports` and `FLOW = 2`.
 
 Do not include the opening slides, Imports slides, or Hungary slides in this file.
 
@@ -552,8 +544,9 @@ benchmarked against the EU-27 average.
    - **id**: `chapter-hungary`
    - **layout**: centered section divider
    - **title**: `Chapter 3 — Hungary`
-   - **subtitle** (GENERATE): one sentence stating that the chapter shows Hungary's yearly imports and exports per SITC energy category, with EU-27 benchmarks
-2. Create one trend slide per SITC category from Section 5.4 using the template in Section 5.6.
+   - **subtitle** (GENERATE): one sentence stating that the chapter shows Hungary's energy-trade scorecard and yearly import, export, and balance trends with EU-27 benchmarks
+2. Create a Hungary scorecard slide summarizing 2025 imports, exports, balance, per-capita import exposure, and EU benchmark position for all four SITC categories.
+3. Create one trend slide per SITC category from Section 5.4 using the template in Section 5.6.
 
 Do not include the opening slides, Imports slides, or Exports slides in this file.
 
